@@ -1,5 +1,6 @@
 package com.boo.bootapplication.Controller;
 
+import com.boo.bootapplication.ExceptionHandler.ProductNotFoundException;
 import com.boo.bootapplication.model.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,5 +47,10 @@ public class ProductServiceController {
     @RequestMapping(value = "/products")
     public ResponseEntity<Object> getProduct() {
         return new ResponseEntity<>(productRepo.values(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/exception/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> throwException(@PathVariable("id") String id) {
+        throw new ProductNotFoundException();
     }
 }
