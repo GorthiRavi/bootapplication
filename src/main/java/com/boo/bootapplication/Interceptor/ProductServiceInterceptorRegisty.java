@@ -13,7 +13,9 @@ public class ProductServiceInterceptorRegisty extends WebMvcConfigurerAdapter {
     ProductInterceptor productInterceptor;
 
     public void addInterceptors(InterceptorRegistry registry){
+
         registry.addInterceptor(productInterceptor);
+        
     }
 
 }
