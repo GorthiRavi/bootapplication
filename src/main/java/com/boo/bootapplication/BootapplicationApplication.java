@@ -11,10 +11,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @ComponentScan(basePackages = {"com.test.outOfPackage","com.boo.bootapplication"})
 @SpringBootApplication
 @EnableScheduling
+@EnableSwagger2
 public class BootapplicationApplication  extends SpringBootServletInitializer {
 	private static Logger logger = LogManager.getLogger(BootapplicationApplication.class);
 
@@ -37,6 +42,12 @@ public class BootapplicationApplication  extends SpringBootServletInitializer {
 				registry.addMapping("/*").allowedOrigins("/*");
 			}
 		};
+	}
+
+	@Bean
+	public Docket productApi() {
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("com.boo.bootapplication.Controller")).build();
 	}
 
 }
